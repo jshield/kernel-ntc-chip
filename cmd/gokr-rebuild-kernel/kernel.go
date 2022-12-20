@@ -159,26 +159,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dtbPath, err := find("bcm2710-rpi-3-b.dtb")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dtbPlusPath, err := find("bcm2710-rpi-3-b-plus.dtb")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dtbZero2WPath, err := find("bcm2710-rpi-zero-2.dtb")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dtbCM3Path, err := find("bcm2710-rpi-cm3.dtb")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dtb4Path, err := find("bcm2711-rpi-4-b.dtb")
-	if err != nil {
-		log.Fatal(err)
-	}
 	libPath, err := find("lib")
 	if err != nil {
 		log.Fatal(err)
