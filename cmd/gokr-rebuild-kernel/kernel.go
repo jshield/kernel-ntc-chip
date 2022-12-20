@@ -137,7 +137,7 @@ func main() {
 	}
 	defer os.RemoveAll(tmp)
 
-	cmd := exec.Command("go", "install", "github.com/jshield/kernel-ntc-chip/cmd/gokr-build-kernel")
+	cmd := exec.Command("go", "install", "github.com/jshield/kernel-ntc-chip/cmd/gokr-build-kernel@latest")
 	cmd.Env = append(os.Environ(), "GOOS=linux", "GOBIN="+tmp, "CGO_ENABLED=0")
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
