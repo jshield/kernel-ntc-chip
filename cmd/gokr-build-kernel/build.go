@@ -4910,11 +4910,11 @@ func compile() error {
 	env := append(os.Environ(),
 		"ARCH=arm",
 		"CROSS_COMPILE=arm-linux-gnueabihf-",
-		"KBUILD_BUILD_USER=gokrazy",
+		"KBUILD_BUILD_USER=jshield",
 		"KBUILD_BUILD_HOST=docker",
 		"KBUILD_BUILD_TIMESTAMP=Wed Mar  1 20:57:29 UTC 2017",
 	)
-	make := exec.Command("make", "Image.gz", "dtbs", "modules", "-j"+strconv.Itoa(runtime.NumCPU()))
+	make := exec.Command("make", "zImage", "dtbs", "modules", "-j"+strconv.Itoa(runtime.NumCPU()))
 	make.Env = env
 	make.Stdout = os.Stdout
 	make.Stderr = os.Stderr
