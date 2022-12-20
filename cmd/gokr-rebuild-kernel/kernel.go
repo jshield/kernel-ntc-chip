@@ -42,7 +42,6 @@ var dockerFileTmpl = template.Must(template.New("dockerfile").
 
 var patchFiles = []string{
 	"0001-drm-Fix-coloration-issue-for-HDMI-DIPs-Popcorn-Stove.patch",
-	"0001-mtd-rawnand-hynix-Add-support-for-H27UCG8T2ETR-BC-ML.patch",
 	"0001-gokrazy-logo.patch",
 }
 
