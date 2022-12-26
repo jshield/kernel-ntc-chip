@@ -1,0 +1,4 @@
+[submodule "linux-sources"]
+	path = linux-sources
+	url = https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+	branch = 731f8c357d25a9fe5a5b9992bb7c0dd6d1c7862f
