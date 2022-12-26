@@ -80,8 +80,7 @@ func run() error {
 }
 
 func githubCommitSha(tagName string) (string, error) {
-	cmd := exec.Command("git", "ls-remote", "-t", "origin", tagName)
-	cmd.Dir = "linux-sources"
+	cmd := exec.Command("git", "ls-remote", "-t", "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git", tagName)
 	cmd.Stderr = os.Stderr
 	out, err := cmd.Output()
 	if err != nil {
