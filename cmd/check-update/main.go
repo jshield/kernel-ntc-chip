@@ -92,8 +92,7 @@ func githubCommitSha(tagName string) (string, error) {
 }
 
 func submoduleSha(submodule string) (string, error) {
-	cmd := exec.Command("git", "rev-parse", "HEAD")
-	cmd.Dir = "linux-sources"
+	cmd := exec.Command("git", "config", "-f", ".gitmodules", "--get", "submodule."+submodule+".branch")
 	cmd.Stderr = os.Stderr
 	out, err := cmd.Output()
 	if err != nil {

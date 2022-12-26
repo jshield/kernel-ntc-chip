@@ -17,12 +17,12 @@ jobs:
         with:
           go-version: 1.18
 
-      - name: Check latest kernel version from https://archive.raspberrypi.org/debian/
+      - name: Check latest kernel version from https://kernel.org
         id: check
         run: |
           # split lines to fail on exit != 0
           sha="$(go run ./cmd/check-update/main.go)"
-          echo "::set-output name=sha::$sha"
+          echo "sha=$sha" >> $GITHUB_OUTPUT
 
       - name: Fetch latest kernel
         if: steps.check.outputs.sha != ''
@@ -35,7 +35,7 @@ jobs:
 
           # split lines to fail on exit != 0
           version="$(make kernelversion)"
-          echo "::set-output name=version::$version"
+          echo "version=$version" >> $GITHUB_OUTPUT
           cd ..
           git diff --no-ext-diff
 
