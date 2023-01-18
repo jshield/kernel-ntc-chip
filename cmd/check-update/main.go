@@ -56,42 +56,25 @@ func run() error {
 
 	tagName := fmt.Sprintf("v%v", updateVersion)
 
-	log.Println("latest version:", tagName)
+	log.Println("latest tag:", tagName)
 
-	latestSha, err := githubCommitSha(tagName)
+	currentTag, err := submoduleTag("linux-sources")
 	if err != nil {
 		return err
 	}
-	log.Println("latest commit:", latestSha)
+	log.Println("submodule tag:", currentTag)
 
-	currentSha, err := submoduleSha("linux-sources")
-	if err != nil {
-		return err
-	}
-	log.Println("submodule commit:", currentSha)
-
-	if latestSha == currentSha {
+	if tagName == currentTag {
 		log.Println("already up to date")
 		return nil
 	}
-	fmt.Println(latestSha)
+	fmt.Println(tagName)
 
 	return nil
 }
 
-func githubCommitSha(tagName string) (string, error) {
-	cmd := exec.Command("git", "ls-remote", "-t", "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git", tagName)
-	cmd.Stderr = os.Stderr
-	out, err := cmd.Output()
-	if err != nil {
-		return "", err
-	}
-	// split first column
-	return strings.TrimSpace(strings.Split(string(out), "\t")[0]), nil
-}
-
-func submoduleSha(submodule string) (string, error) {
-	cmd := exec.Command("git", "config", "-f", ".gitmodules", "--get", "submodule."+submodule+".branch")
+func submoduleTag(submodule string) (string, error) {
+	cmd := exec.Command("git", "config", "-f", ".gitmodules", "--get", "submodule."+submodule+".tag")
 	cmd.Stderr = os.Stderr
 	out, err := cmd.Output()
 	if err != nil {

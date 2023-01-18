@@ -21,17 +21,18 @@ jobs:
         id: check
         run: |
           # split lines to fail on exit != 0
-          sha="$(go run ./cmd/check-update/main.go)"
-          echo "sha=$sha" >> $GITHUB_OUTPUT
+          tag="$(go run ./cmd/check-update/main.go)"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
 
       - name: Fetch latest kernel
-        if: steps.check.outputs.sha != ''
+        if: steps.check.outputs.tag != ''
         id: fetch
         run: |
+          git config -f .gitmodules submodule.scripts.tag ${{steps.check.output.tag}}
           git submodule update --init --depth=1 linux-sources
           cd linux-sources
-          git fetch --depth=1 origin ${{steps.check.outputs.sha}}
-          git checkout ${{steps.check.outputs.sha}}
+          git fetch --depth=1 origin ${{steps.check.outputs.tag}}
+          git checkout ${{steps.check.outputs.tag}}
 
           # split lines to fail on exit != 0
           version="$(make kernelversion)"
@@ -40,15 +41,15 @@ jobs:
           git diff --no-ext-diff
 
       - name: Compile latest kernel
-        if: steps.check.outputs.sha != ''
+        if: steps.check.outputs.tag != ''
         run: go run cmd/compile/main.go
 
       - name: Show kernel config
-        if: steps.check.outputs.sha != ''
+        if: steps.check.outputs.tag != ''
         run: cat linux-sources/.config
 
       - name: Commit the new kernel
-        if: steps.check.outputs.sha != ''
+        if: steps.check.outputs.tag != ''
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: kernel ${{steps.fetch.outputs.version}}
