@@ -28,7 +28,7 @@ jobs:
         if: steps.check.outputs.tag != ''
         id: fetch
         run: |
-          git config -f .gitmodules submodule.scripts.tag ${{steps.check.outputs.tag}}
+          git config -f .gitmodules submodule.linux-sources.tag ${{steps.check.outputs.tag}}
           git submodule update --init --depth=1 linux-sources
           cd linux-sources
           
