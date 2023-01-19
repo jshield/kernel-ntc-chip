@@ -28,12 +28,10 @@ jobs:
         if: steps.check.outputs.tag != ''
         id: fetch
         run: |
-          git config -f .gitmodules submodule.scripts.tag ${{steps.check.output.tag}}
+          git config -f .gitmodules submodule.scripts.tag ${{steps.check.outputs.tag}}
           git submodule update --init --depth=1 linux-sources
           cd linux-sources
-          git fetch --depth=1 origin ${{steps.check.outputs.tag}}
-          git checkout ${{steps.check.outputs.tag}}
-
+          
           # split lines to fail on exit != 0
           version="$(make kernelversion)"
           echo "version=$version" >> $GITHUB_OUTPUT
