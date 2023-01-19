@@ -31,6 +31,8 @@ jobs:
           git config -f .gitmodules submodule.linux-sources.tag ${{steps.check.outputs.tag}}
           git submodule update --init --depth=1 linux-sources
           cd linux-sources
+          git fetch --depth=1 origin ${{steps.check.outputs.tag}}
+          git checkout ${{steps.check.outputs.tag}}
           
           # split lines to fail on exit != 0
           version="$(make kernelversion)"
