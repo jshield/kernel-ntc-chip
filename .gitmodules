@@ -1,4 +1,4 @@
 [submodule "linux-sources"]
 	path = linux-sources
 	url = https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-	tag = v6.10.1
+	tag = v6.10.2
